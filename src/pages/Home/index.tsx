@@ -1,16 +1,22 @@
-import { AppBar, Grid, Toolbar, Typography } from '@mui/material';
+import { Grid } from '@mui/material';
+import { Layout } from '../../components';
+import Countries from './Countries';
+import Filter from './Filter';
+import { CountryFilter } from './types';
+import { useState } from 'react';
 
 export default function Home() {
+    const countryFilterState = useState<CountryFilter>({
+        name: '',
+        region: '',
+    });
+
     return (
-        <Grid container>
-            <AppBar position='static'>
-                <Toolbar>
-                    <Typography variant='h6'>
-                        <strong>Where in the world?</strong>
-                    </Typography>
-                </Toolbar>
-            </AppBar>
-            <Typography variant='h1'>Home</Typography>
-        </Grid>
+        <Layout>
+            <Grid container spacing={8}>
+                <Filter countryFilterState={countryFilterState} />
+                <Countries filter={countryFilterState[0]} />
+            </Grid>
+        </Layout>
     );
 }
