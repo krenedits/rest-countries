@@ -1,13 +1,17 @@
-import { Grid } from '@mui/material';
-import { useEffect, useState } from 'react';
-import useFetch from '../../hooks/useFetch';
-import endpoints from '../../utils/endpoints';
+import { Grid, Typography } from '@mui/material';
+import { useContext, useEffect, useState } from 'react';
+import CountryContext from '../../contexts/CountryContext';
 import Country from './Country';
-import { CountriesProps, ICountry } from './types';
+import { CountriesProps } from './types';
 
 export default function Countries({ filter }: CountriesProps) {
-    const { data, loading } = useFetch<ICountry[]>(endpoints.all);
     const [numCountries, setNumCountries] = useState(12);
+    const countries = useContext(CountryContext);
+    console.log(countries);
+
+    useEffect(() => {
+        setNumCountries(12);
+    }, [filter]);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -25,25 +29,35 @@ export default function Countries({ filter }: CountriesProps) {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
+    const countriesToDisplay = [...countries]
+        ?.sort((a, b) => a.name.common.localeCompare(b.name.common))
+        .filter(
+            (country) =>
+                country.name.common
+                    .toLowerCase()
+                    .includes(filter.name.toLowerCase()) &&
+                (filter.region === '' || country.region === filter.region)
+        )
+        .slice(0, numCountries);
+
     return (
         <Grid item xs={12} container spacing={10} justifyContent='center'>
-            {loading ? (
-                <p>Loading...</p>
+            {countriesToDisplay.length > 0 ? (
+                countriesToDisplay.map((country) => (
+                    <Grid item key={country.name.common}>
+                        <Country {...country} />
+                    </Grid>
+                ))
             ) : (
-                data
-                    ?.filter(
-                        (country) =>
-                            country.name.common
-                                .toLowerCase()
-                                .includes(filter.name.toLowerCase()) &&
-                            (filter.region === '' ||
-                                country.region === filter.region)
-                    )
-                    .slice(0, numCountries)
-                    .sort((a, b) => a.name.common.localeCompare(b.name.common))
-                    .map((country) => (
-                        <Country key={country.name.common} {...country} />
-                    ))
+                <Grid item xs={12}>
+                    <Typography
+                        textAlign='center'
+                        color='text.secondary'
+                        variant='h5'
+                    >
+                        No countries found
+                    </Typography>
+                </Grid>
             )}
         </Grid>
     );

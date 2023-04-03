@@ -4,11 +4,27 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import ModeContext from './contexts/ModeContext';
 import Home from './pages/Home';
 import theme from './utils/theme';
+import { Layout } from './components';
+import Country from './pages/Country';
 
 const router = createBrowserRouter([
     {
         path: '/',
-        element: <Home />,
+        element: <Layout />,
+        children: [
+            {
+                path: '/',
+                element: <Home />,
+            },
+            {
+                path: '/:cca3',
+                element: <Country />,
+            },
+            {
+                path: '*',
+                element: <div>Not found</div>,
+            },
+        ],
     },
 ]);
 

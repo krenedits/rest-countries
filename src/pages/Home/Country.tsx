@@ -1,18 +1,38 @@
-import { Card, CardContent, CardMedia, Grid, Typography } from '@mui/material';
+import {
+    Card,
+    CardActionArea,
+    CardContent,
+    CardMedia,
+    Typography,
+} from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import { ICountry } from './types';
 
 export default function Country(country: ICountry) {
-    console.log(country);
+    const navigate = useNavigate();
 
     return (
-        <Grid item>
-            <Card elevation={4} sx={{ height: '100%', width: 300 }}>
-                <CardMedia
-                    component='img'
-                    image={country.flags.svg}
-                    alt={country.name.common}
-                    height='200'
-                />
+        <Card elevation={4} sx={{ height: '100%', width: 300 }}>
+            <CardActionArea onClick={() => navigate(country.cca3)}>
+                <div
+                    style={{
+                        height: 200,
+                        position: 'relative',
+                    }}
+                >
+                    <CardMedia
+                        component='img'
+                        image={country.flags.svg}
+                        alt={country.name.common}
+                        width='100%'
+                        style={{
+                            position: 'absolute',
+                            top: '50%',
+                            transform: 'translateY(-50%)',
+                            maxHeight: '100%',
+                        }}
+                    />
+                </div>
                 <CardContent>
                     <Typography
                         gutterBottom
@@ -33,7 +53,7 @@ export default function Country(country: ICountry) {
                         <strong>Capital:</strong> {country.capital}
                     </Typography>
                 </CardContent>
-            </Card>
-        </Grid>
+            </CardActionArea>
+        </Card>
     );
 }

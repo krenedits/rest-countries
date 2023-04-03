@@ -1,6 +1,7 @@
 import { DarkMode, DarkModeOutlined } from '@mui/icons-material';
 import {
     AppBar,
+    CircularProgress,
     Container,
     Grid,
     IconButton,
@@ -10,9 +11,15 @@ import {
 import { useContext } from 'react';
 import ModeContext from '../../contexts/ModeContext';
 import theme from '../../utils/theme';
-import { LayoutProps } from './types';
+import { Outlet } from 'react-router-dom';
+import endpoints from '../../utils/endpoints';
+import { ICountry } from '../../pages/Home/types';
+import useFetch from '../../hooks/useFetch';
+import { CountryProvider } from '../../contexts/CountryContext';
 
-export default function Layout({ children }: LayoutProps) {
+export default function Layout() {
+    const { data, loading } = useFetch<ICountry[]>(endpoints.all);
+
     const [mode, setMode] = useContext(ModeContext);
 
     const toggleMode = () => {
@@ -58,7 +65,13 @@ export default function Layout({ children }: LayoutProps) {
                 </AppBar>
                 <Container maxWidth='xl'>
                     <Toolbar />
-                    {children}
+                    {loading ? (
+                        <CircularProgress size={50} />
+                    ) : (
+                        <CountryProvider value={data as ICountry[]}>
+                            <Outlet />
+                        </CountryProvider>
+                    )}
                 </Container>
             </Grid>
         </div>
