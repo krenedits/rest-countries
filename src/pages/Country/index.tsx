@@ -96,26 +96,38 @@ export default function Country() {
                     </Grid>
                     <Grid item xs={12} container spacing={2} mb={2}>
                         <Grid item container xs={12} md={6}>
-                            <Typography>
-                                <strong>Native Name:</strong>{' '}
-                                {
-                                    Object.values(country.name.nativeName)[0]
-                                        .common
-                                }
-                            </Typography>
-                            <Typography>
-                                <strong>Population:</strong>{' '}
-                                {country.population.toLocaleString('en-US')}
-                            </Typography>
-                            <Typography>
-                                <strong>Region:</strong> {country.region}
-                            </Typography>
-                            <Typography>
-                                <strong>Sub region:</strong> {country.subregion}
-                            </Typography>
-                            <Typography>
-                                <strong>Capital:</strong> {country.capital}
-                            </Typography>
+                            <Grid item xs={12}>
+                                <Typography>
+                                    <strong>Native Name:</strong>{' '}
+                                    {
+                                        Object.values(
+                                            country.name.nativeName
+                                        )[0].common
+                                    }
+                                </Typography>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Typography>
+                                    <strong>Population:</strong>{' '}
+                                    {country.population.toLocaleString('en-US')}
+                                </Typography>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Typography>
+                                    <strong>Region:</strong> {country.region}
+                                </Typography>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Typography>
+                                    <strong>Sub region:</strong>{' '}
+                                    {country.subregion}
+                                </Typography>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Typography>
+                                    <strong>Capital:</strong> {country.capital}
+                                </Typography>
+                            </Grid>
                         </Grid>
                         <Grid
                             item
@@ -124,20 +136,28 @@ export default function Country() {
                             md={6}
                             alignSelf='flex-start'
                         >
-                            <Typography>
-                                <strong>Top level domain:</strong>{' '}
-                                {country.tld[0]}
-                            </Typography>
-                            <Typography>
-                                <strong>Currencies:</strong>{' '}
-                                {Object.values(country.currencies)
-                                    .map((c) => c.name)
-                                    .join(', ')}
-                            </Typography>
-                            <Typography>
-                                <strong>Languages:</strong>{' '}
-                                {Object.values(country.languages).join(', ')}
-                            </Typography>
+                            <Grid item xs={12}>
+                                <Typography>
+                                    <strong>Top level domain:</strong>{' '}
+                                    {country.tld[0]}
+                                </Typography>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Typography>
+                                    <strong>Currencies:</strong>{' '}
+                                    {Object.values(country.currencies)
+                                        .map((c) => c.name)
+                                        .join(', ')}
+                                </Typography>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Typography>
+                                    <strong>Languages:</strong>{' '}
+                                    {Object.values(country.languages).join(
+                                        ', '
+                                    )}
+                                </Typography>
+                            </Grid>
                         </Grid>
                     </Grid>
                     <Grid item xs={12} container spacing={1}>

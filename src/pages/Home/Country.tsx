@@ -42,14 +42,14 @@ export default function Country(country: ICountry) {
                     >
                         {country.name.common}
                     </Typography>
-                    <Typography variant='body2' fontSize={14}>
+                    <Typography variant='body2' fontSize={14} component='div'>
                         <strong>Population:</strong>{' '}
                         {country.population.toLocaleString('en-US')}
                     </Typography>
-                    <Typography variant='body2' fontSize={14}>
+                    <Typography variant='body2' fontSize={14} component='div'>
                         <strong>Region:</strong> {country.region}
                     </Typography>
-                    <Typography variant='body2' fontSize={14}>
+                    <Typography variant='body2' fontSize={14} component='div'>
                         <strong>Capital:</strong> {country.capital}
                     </Typography>
                 </CardContent>
