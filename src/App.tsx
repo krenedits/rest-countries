@@ -7,26 +7,31 @@ import theme from './utils/theme';
 import { Layout } from './components';
 import Country from './pages/Country';
 
-const router = createBrowserRouter([
+const router = createBrowserRouter(
+    [
+        {
+            path: '/',
+            element: <Layout />,
+            children: [
+                {
+                    path: '/',
+                    element: <Home />,
+                },
+                {
+                    path: '/:cca3',
+                    element: <Country />,
+                },
+                {
+                    path: '*',
+                    element: <div>Not found</div>,
+                },
+            ],
+        },
+    ],
     {
-        path: '/',
-        element: <Layout />,
-        children: [
-            {
-                path: '/',
-                element: <Home />,
-            },
-            {
-                path: '/:cca3',
-                element: <Country />,
-            },
-            {
-                path: '*',
-                element: <div>Not found</div>,
-            },
-        ],
-    },
-]);
+        basename: import.meta.env.VITE_BASENAME,
+    }
+);
 
 function App() {
     const [mode] = useContext(ModeContext);
